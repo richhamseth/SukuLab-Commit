@@ -25,10 +25,7 @@ pipeline {
             steps {
                 sh "sudo docker run -it --name daily daily "
             }
-
         } 
-
-
     }
  }
 
