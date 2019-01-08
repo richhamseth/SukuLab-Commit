@@ -11,19 +11,19 @@ pipeline {
     
         stage("build docker image") {
             steps {
-                sh "sudo docker build -t daily . "
+                sh "docker build -t commit_info . "
             }
         }
 
         stage("env cleanup") { 
             steps {
-                sh "sudo docker image prune -f"
+                sh "docker image prune -f"
             }
         }
         
         stage("Launch service") {        
             steps {
-                sh "sudo docker run -it --name daily daily "
+                sh "docker run -d --name suku_commit_info"
             }
         } 
     }
