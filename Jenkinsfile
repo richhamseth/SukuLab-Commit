@@ -23,6 +23,7 @@ pipeline {
         
         stage("Launch service") {        
             steps { 
+                sh "docker rm -f suku_commit_info"
                 sh "docker run -d --name suku_commit_info commit_info"
             }
         } 
