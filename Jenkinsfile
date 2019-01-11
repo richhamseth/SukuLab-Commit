@@ -8,16 +8,16 @@ pipeline {
                 checkout scm
             }
         }
+        
+        stage("env cleanup") { 
+            steps {
+                sh "docker image prune -f"
+            }
+        }
     
         stage("build docker image") {
             steps {
                 sh "docker build -t commit_info . "
-            }
-        }
-
-        stage("env cleanup") { 
-            steps {
-                sh "docker image prune -f"
             }
         }
         
