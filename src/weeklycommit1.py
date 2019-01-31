@@ -45,13 +45,13 @@ def updatecommit(length, repos, row):
     else:
         sheet.update_cell(row, len(sheet.row_values(row))+1, length)
 
-def getcount(repos, sha, until):
+def getcount(repos, sha, since, until):
     count = 0
     value = 1
     page = 0
     while value == 1:
         url = "https://api.github.com/repos/"+args.org+"/"+str(repos)+"/commits?sha="\
-              +str(sha)+"&until="+str(until)+"&page="+str(page+1)+"&per_page=100"
+              +str(sha)+"&since="+str(since)+"&until="+str(until)+"&page="+str(page+1)+"&per_page=100"
         res = requests.get(url, auth=auth)
         if len(res.json()) != 0:
             page = page+1
@@ -62,16 +62,21 @@ def getcount(repos, sha, until):
     print (count)
     return count
 
-def update(repos, row_count, col_count, until):
+def update(repos, row_count, col_count, since, until):
     url = "https://api.github.com/repos/"+args.org+"/"+repos+"/branches"
     data = requests.get(url, auth=auth)
     print (repos)
+    branch = []
 
     for j in range (len(data.json())):
-        if data.json()[j]["name"] == "feature":
-            count = getcount(repos, data.json()[j]['commit']['sha'], until)
+        if data.json()[j]["name"] == "feature" or (data.json()[j]["name"]).split('/')[0] == "feature":
+            count = getcount(repos, data.json()[j]['commit']['sha'], since, until)
             sheet = gspreedauthorized()
-            sheet.update_cell(col_count, row_count, count)
+            print (str(repos)+"respos:****************"+str(data.json()[j]["name"]))
+            cell = [col_count, row_count, count, repos]
+            branch.append(cell)
+            #sheet.update_cell(col_count, row_count, count)
+    print (branch)
 
 def commitcount():
     repos = json.load(open("repolist.json", 'r'))
@@ -80,9 +85,9 @@ def commitcount():
     sheet.update_acell('A'+str(len(sheet.col_values(1))+1), str(date.today()))
     sheet.update_acell('B'+str(len(sheet.col_values(1))), str(0))
     t = datetime.datetime.today().isoformat()
-    parsed_t = dp.parse(t)
-    t_in_seconds = parsed_t.strftime('%s')
-    since = DT.datetime.utcfromtimestamp(int(t_in_seconds)-86400).isoformat()
+    """parsed_t = dp.parse(t)
+                t_in_seconds = parsed_t.strftime('%s')
+                since = DT.datetime.utcfromtimestamp(int(t_in_seconds)-86400).isoformat()"""
 
     for row_count in range (len(sheet.col_values(1))):
         if len(sheet.row_values(1)) != len(sheet.row_values(row_count+1)):
@@ -91,10 +96,8 @@ def commitcount():
                 yourdate = datetime.datetime.strptime(time, '%Y-%m-%d')
                 t = yourdate.isoformat()
                 parsed_t = dp.parse(t)
-                t_in_seconds = parsed_t.strftime('%s')
+                t_in_seconds = parsed_t.strftime("%s")
                 since = DT.datetime.utcfromtimestamp(int(t_in_seconds)-86400).isoformat()
-                update(sheet.cell(1, var).value, var, row_count+1, t)
+                update(sheet.cell(1, var).value, var, row_count+1, since, t)
 
 commitcount()
-
-# python3 commitcount.py --username richhamseth --password  --org Git2Swarm
