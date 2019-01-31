@@ -119,9 +119,6 @@ def commitcount():
     sheet.update_acell('A'+str(len(sheet.col_values(1))+1), str(date.today()))
     sheet.update_acell('B'+str(len(sheet.col_values(1))), str(0))
     t = datetime.datetime.today().isoformat()
-    """parsed_t = dp.parse(t)
-                t_in_seconds = parsed_t.strftime('%s')
-                since = DT.datetime.utcfromtimestamp(int(t_in_seconds)-86400).isoformat()"""
 
     for row_count in range (len(sheet.col_values(1))):
         if len(sheet.row_values(1)) != len(sheet.row_values(row_count+1)):
@@ -129,13 +126,10 @@ def commitcount():
                 time = sheet.cell(row_count+1, 1).value
                 yourdate = datetime.datetime.strptime(time, '%Y-%m-%d')
                 t = yourdate.isoformat()
-                #since = "2019-01-27T00:00:00"
                 parsed_t = dp.parse(t)
                 t_in_seconds = parsed_t.strftime("%s")
                 since = DT.datetime.utcfromtimestamp(int(t_in_seconds)-86400).isoformat()
-                """parsed_t = dp.parse(t)
-                                                                t_in_seconds = parsed_t.strftime("%s")
-                                                                since = DT.datetime.utcfromtimestamp(int(t_in_seconds)-86400).isoformat()"""
+                
                 update(sheet.cell(1, var).value, var, row_count+1, since, t)
 
 commitcount()
