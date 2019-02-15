@@ -116,8 +116,8 @@ def commitcount():
     repos = json.load(open("repolist.json", 'r'))
     sheet = gspreedauthorized()
     row = len(sheet.col_values(1))+1
-    sheet.update_acell('A'+str(len(sheet.col_values(1))+1), str(date.today()))
-    sheet.update_acell('B'+str(len(sheet.col_values(1))), str(0))
+    #sheet.update_acell('A'+str(len(sheet.col_values(1))+1), str(date.today()))
+    #sheet.update_acell('B'+str(len(sheet.col_values(1))), str(0))
     t = datetime.datetime.today().isoformat()
 
     for row_count in range (len(sheet.col_values(1))):
