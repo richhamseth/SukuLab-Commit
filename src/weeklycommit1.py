@@ -104,13 +104,15 @@ def update(repos, row_count, col_count, since, until):
             #total = getcount(repos, branch[i][4], since)
             total = int(branch[i][3])-count
         print (count, repos)
-        sheet = gspreedauthorized()
+        print ("++++++++++++++++++++++++++++++++++++++++"+str(total+count), repos)
+        #sheet = gspreedauthorized()
         #sheet.update_cell(col_count, row_count, total+count)
 
     else:
         count = getcount(repos, branch[0][4], branch[0][3])
-        sheet = gspreedauthorized()
+        #sheet = gspreedauthorized()
         print (count, repos)
+        print ("++++++++++++++++++++++++++++++++++++++++"+str(total+count), repos)
         #sheet.update_cell(col_count, row_count, count)
 
 
