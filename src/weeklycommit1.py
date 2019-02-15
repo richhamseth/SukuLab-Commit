@@ -40,10 +40,12 @@ def updatecommit(length, repos, row):
             arr.append(repos)
 
     if len(arr) == 0:
-        sheet.update_cell(1, len(sheet.row_values(1))+1, repos)
+        print ("")
+        #sheet.update_cell(1, len(sheet.row_values(1))+1, repos)
         
     else:
-        sheet.update_cell(row, len(sheet.row_values(row))+1, length)
+        print ("")
+        #sheet.update_cell(row, len(sheet.row_values(row))+1, length)
 
 def getcount(repos, sha, until):
     count = 0
