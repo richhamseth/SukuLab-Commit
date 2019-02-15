@@ -103,13 +103,13 @@ def update(repos, row_count, col_count, since, until):
             total = int(branch[i][3])-count
         print (count, repos)
         sheet = gspreedauthorized()
-        sheet.update_cell(col_count, row_count, total+count)
+        #sheet.update_cell(col_count, row_count, total+count)
 
     else:
         count = getcount(repos, branch[0][4], branch[0][3])
         sheet = gspreedauthorized()
         print (count, repos)
-        sheet.update_cell(col_count, row_count, count)
+        #sheet.update_cell(col_count, row_count, count)
 
 
 def commitcount():
