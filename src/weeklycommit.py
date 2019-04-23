@@ -41,11 +41,11 @@ def updatecommit(length, repos, row):
 
     if len(arr) == 0:
         print ("")
-        #sheet.update_cell(1, len(sheet.row_values(1))+1, repos)
+        sheet.update_cell(1, len(sheet.row_values(1))+1, repos)
         
     else:
         print ("")
-        #sheet.update_cell(row, len(sheet.row_values(row))+1, length)
+        sheet.update_cell(row, len(sheet.row_values(row))+1, length)
 
 def getcount(repos, sha, until):
     count = 0
@@ -95,7 +95,7 @@ def update(repos, row_count, col_count, since, until):
             print (str(repos)+"respos:****************"+str(data.json()[j]["name"]))
             cell = [col_count, row_count, repos, count, data.json()[j]['commit']['sha']]
             branch.append(cell)
-            #sheet.update_cell(col_count, row_count, count)
+            sheet.update_cell(col_count, row_count, count)
     print (branch)
     if len(branch) >= 1:
         count = 0
@@ -105,23 +105,23 @@ def update(repos, row_count, col_count, since, until):
             total = int(branch[i][3])-count
         print (count, repos)
         print ("++++++++++++++++++++++++++++++++++++++++"+str(total+count), repos)
-        #sheet = gspreedauthorized()
-        #sheet.update_cell(col_count, row_count, total+count)
+        sheet = gspreedauthorized()
+        sheet.update_cell(col_count, row_count, total+count)
 
     else:
         count = getcount(repos, branch[0][4], branch[0][3])
         #sheet = gspreedauthorized()
         print (count, repos)
         print ("++++++++++++++++++++++++++++++++++++++++"+str(total+count), repos)
-        #sheet.update_cell(col_count, row_count, count)
+        sheet.update_cell(col_count, row_count, count)
 
 
 def commitcount():
     repos = json.load(open("repolist.json", 'r'))
     sheet = gspreedauthorized()
     row = len(sheet.col_values(1))+1
-    #sheet.update_acell('A'+str(len(sheet.col_values(1))+1), str(date.today()))
-    #sheet.update_acell('B'+str(len(sheet.col_values(1))), str(0))
+    sheet.update_acell('A'+str(len(sheet.col_values(1))+1), str(date.today()))
+    sheet.update_acell('B'+str(len(sheet.col_values(1))), str(0))
     t = datetime.datetime.today().isoformat()
 
     for row_count in range (len(sheet.col_values(1))):
