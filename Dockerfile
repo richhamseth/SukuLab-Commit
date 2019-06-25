@@ -6,4 +6,4 @@ RUN pip install PyOpenSSL
 RUN pip install gspread
 RUN pip install oauth2client==1.5.2
 RUN pip install python-dateutil
-CMD python weeklycommit.py --username jaisond --password  jaison632 --org SukuLab
+CMD python weeklycommit.py --username <> --password  <> --org SukuLab
